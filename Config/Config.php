@@ -24,7 +24,7 @@
 	const NOMBRE_REMITENTE = "Tienda Virtual";
 	const EMAIL_REMITENTE = "no-reply@okara.com";
 	const NOMBRE_EMPESA = "Tienda Virtual";
-	const WEB_EMPRESA = "www.okara.com";
+	const WEB_EMPRESA = "www.okaras.com";
 
 	const CAT_SLIDER = "1,2,3";
 	const CAT_BANNER = "4,5,6";
