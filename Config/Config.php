@@ -13,7 +13,7 @@
 	const DB_PASSWORD = "";
 	const DB_CHARSET = "utf8";
 
-	//Deliminadores decimal y millar Ej. 24.1989,00
+	//Deliminadores decimal y millar Ej. 24.198,00
 	const SPD = ",";
 	const SPM = ".";
 
@@ -24,7 +24,7 @@
 	const NOMBRE_REMITENTE = "Tienda Virtual";
 	const EMAIL_REMITENTE = "no-reply@okara.com";
 	const NOMBRE_EMPESA = "Tienda Virtual";
-	const WEB_EMPRESA = "www.okaras.com";
+	const WEB_EMPRESA = "www.okara.com";
 
 	const CAT_SLIDER = "1,2,3";
 	const CAT_BANNER = "4,5,6";
