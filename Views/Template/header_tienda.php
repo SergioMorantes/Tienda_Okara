@@ -5,7 +5,7 @@
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 <!--===============================================================================================-->	
-	<link rel="icon" type="image/png" href="<?= media() ?>/tienda/images/favicon.ico"/>
+	<link rel="icon" type="image/png" href="<?= media() ?>/tienda/images/okara.ico"/>
 <!--===============================================================================================-->
 	<link rel="stylesheet" type="text/css" href="<?= media() ?>/tienda/vendor/bootstrap/css/bootstrap.min.css">
 <!--===============================================================================================-->
@@ -45,14 +45,11 @@
 			<div class="top-bar">
 				<div class="content-topbar flex-sb-m h-full container">
 					<div class="left-top-bar">
-						Bienvenido a la Tienda Virtual de Okara
+						Bienvenidos a Okara Alimentos Veganos
 					</div>
 
 					<div class="right-top-bar flex-w h-full">
-						<a href="#" class="flex-c-m trans-04 p-lr-25">
-							Help & FAQs
-						</a>
-
+						
 						<a href="#" class="flex-c-m trans-04 p-lr-25">
 							Mi cuenta
 						</a>
@@ -69,7 +66,7 @@
 					
 					<!-- Logo desktop -->		
 					<a href="<?= base_url(); ?>" class="logo">
-						<img src="<?= media() ?>/tienda/images/logo.png" alt="Tienda Virtual Okara">
+						<img src="<?= media() ?>/tienda/images/okara.png" alt="Tienda Virtual Okara">
 					</a>
 
 					<!-- Menu desktop -->

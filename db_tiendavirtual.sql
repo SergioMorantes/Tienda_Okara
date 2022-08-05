@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.2
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3306
--- Tiempo de generación: 13-12-2020 a las 21:09:52
--- Versión del servidor: 8.0.18
--- Versión de PHP: 7.3.12
+-- Tiempo de generación: 06-01-2021 a las 09:21:02
+-- Versión del servidor: 5.7.26
+-- Versión de PHP: 7.1.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,10 +31,11 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `categoria`;
 CREATE TABLE IF NOT EXISTS `categoria` (
   `idcategoria` bigint(20) NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
   `descripcion` text COLLATE utf8mb4_swedish_ci NOT NULL,
   `portada` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
   `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idcategoria`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
@@ -43,15 +44,15 @@ CREATE TABLE IF NOT EXISTS `categoria` (
 -- Volcado de datos para la tabla `categoria`
 --
 
-INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `portada`, `datecreated`, `status`) VALUES
-(1, 'Chaquetas', 'Lo mejor en moda', 'img_1706b9300f46dc7a373cdc6ae8928895.jpg', '2020-10-23 03:14:08', 1),
-(2, 'Blusas', 'Las chicas perfectas', 'img_4e01ad64d99f3fba516bc77d198ce17f.jpg', '2020-10-23 03:17:26', 1),
-(3, 'Jeans', 'Lo mejor en Jeans', 'img_6cfc2c38c15593e36a5e41795ea1de32.jpg', '2020-10-23 03:17:42', 1),
-(4, 'Caballero', 'Productos para caballeros', 'img_a939c8d8ca5784159a43d0d82b80582d.jpg', '2020-10-28 03:45:12', 1),
-(5, 'Damas', 'Productos para damas', 'img_5dafcd6ec18901c147c7cfde850a1ab1.jpg', '2020-10-30 03:05:09', 1),
-(6, 'Accesorios', 'Accesorios varios', 'img_84f83e4988f31e6fd25e9d2df04d3f7f.jpg', '2020-11-14 00:21:15', 1),
-(7, 'Categoria ejemplo', 'Descripción categoría ejemplo', 'portada_categoria.png', '2020-12-05 22:38:27', 1),
-(8, 'Caterogía 20', 'Descripción', 'portada_categoria.png', '2020-12-05 23:00:16', 1);
+INSERT INTO `categoria` (`idcategoria`, `nombre`, `descripcion`, `portada`, `datecreated`, `ruta`, `status`) VALUES
+(1, 'Chaquetas', 'Lo mejor en moda', 'img_1706b9300f46dc7a373cdc6ae8928895.jpg', '2020-10-23 03:14:08', 'chaquetas', 1),
+(2, 'Blusas', 'Las chicas perfectas', 'img_4e01ad64d99f3fba516bc77d198ce17f.jpg', '2020-10-23 03:17:26', 'blusas', 1),
+(3, 'Jeans', 'Lo mejor en Jeans', 'img_6cfc2c38c15593e36a5e41795ea1de32.jpg', '2020-10-23 03:17:42', 'jeans', 1),
+(4, 'Caballero', 'Productos para caballeros', 'img_a939c8d8ca5784159a43d0d82b80582d.jpg', '2020-10-28 03:45:12', 'caballero', 1),
+(5, 'Damas', 'Productos para damas', 'img_5dafcd6ec18901c147c7cfde850a1ab1.jpg', '2020-10-30 03:05:09', 'damas', 1),
+(6, 'Accesorios', 'Accesorios varios', 'img_84f83e4988f31e6fd25e9d2df04d3f7f.jpg', '2020-11-14 00:21:15', 'accesorios', 1),
+(7, 'Categoria ejemplo', 'Descripción categoría ejemplo', 'portada_categoria.png', '2020-12-05 22:38:27', 'categoria-ejemplo', 1),
+(8, 'Caterogía 20', 'Descripción', 'portada_categoria.png', '2020-12-05 23:00:16', 'caterogia-20', 1);
 
 -- --------------------------------------------------------
 
@@ -80,13 +81,15 @@ CREATE TABLE IF NOT EXISTS `detalle_pedido` (
 DROP TABLE IF EXISTS `detalle_temp`;
 CREATE TABLE IF NOT EXISTS `detalle_temp` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `personaid` bigint(20) NOT NULL,
   `productoid` bigint(20) NOT NULL,
   `precio` decimal(11,2) NOT NULL,
   `cantidad` int(11) NOT NULL,
-  `token` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `transaccionid` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
   PRIMARY KEY (`id`),
-  KEY `productoid` (`productoid`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+  KEY `productoid` (`productoid`),
+  KEY `personaid` (`personaid`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- --------------------------------------------------------
 
@@ -101,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `imagen` (
   `img` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
   PRIMARY KEY (`id`),
   KEY `productoid` (`productoid`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `imagen`
@@ -122,7 +125,6 @@ INSERT INTO `imagen` (`id`, `productoid`, `img`) VALUES
 (20, 2, 'pro_75f4d282b2735d59287c551e6c2a094e.jpg'),
 (21, 6, 'pro_bba122841772a79d9089efe260b0d585.jpg'),
 (22, 6, 'pro_bf14fed939b2da088255727ede14a1f8.jpg'),
-(23, 1, 'pro_cb6569dd7907b0eebf83b356fb5b8c9f.jpg'),
 (24, 10, 'pro_6c0537968a89765773d91230daef622a.jpg'),
 (25, 10, 'pro_e3345c10650826ea67447733e65e63a8.jpg'),
 (27, 11, 'pro_2742b9f94da4267903f22e05a1ed08d4.jpg'),
@@ -131,7 +133,9 @@ INSERT INTO `imagen` (`id`, `productoid`, `img`) VALUES
 (30, 12, 'pro_d1d4ad5e1603d3c15a440e5dd4c5cb0c.jpg'),
 (31, 12, 'pro_c6f6b5eea4c76ed9bc3a58472c6468b7.jpg'),
 (32, 12, 'pro_c5b9a923e22639730766f5b9a88773fd.jpg'),
-(33, 12, 'pro_616b30feafb00faca08cb1019150610f.jpg');
+(33, 12, 'pro_616b30feafb00faca08cb1019150610f.jpg'),
+(35, 13, 'pro_c820f0c056787c3d172711fb10d1f14a.jpg'),
+(36, 13, 'pro_e3a6cb1dd8d87357c40b8e9d33e65821.jpg');
 
 -- --------------------------------------------------------
 
@@ -175,7 +179,8 @@ CREATE TABLE IF NOT EXISTS `pedido` (
   `tipopagoid` bigint(20) NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idpedido`),
-  KEY `personaid` (`personaid`)
+  KEY `personaid` (`personaid`),
+  KEY `tipopagoid` (`tipopagoid`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 -- --------------------------------------------------------
@@ -231,28 +236,28 @@ INSERT INTO `permisos` (`idpermiso`, `rolid`, `moduloid`, `r`, `w`, `u`, `d`) VA
 DROP TABLE IF EXISTS `persona`;
 CREATE TABLE IF NOT EXISTS `persona` (
   `idpersona` bigint(20) NOT NULL AUTO_INCREMENT,
-  `identificacion` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `identificacion` varchar(30) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
   `nombres` varchar(80) COLLATE utf8mb4_swedish_ci NOT NULL,
   `apellidos` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
   `telefono` bigint(20) NOT NULL,
   `email_user` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
-  `password` varchar(75) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `direccion` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
-  `barrio` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
-  `ciudad` varchar(50) COLLATE utf8mb4_swedish_ci NOT NULL,
-  `token` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_swedish_ci NOT NULL,
+  `password` varchar(75) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `nit` varchar(20) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `nombrefiscal` varchar(80) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `direccionfiscal` varchar(100) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
+  `token` varchar(100) COLLATE utf8mb4_swedish_ci DEFAULT NULL,
   `rolid` bigint(20) NOT NULL,
   `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idpersona`),
   KEY `rolid` (`rolid`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `persona`
 --
 
-INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `direccion`, `barrio`, `ciudad`, `token`, `rolid`, `datecreated`, `status`) VALUES
+INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `telefono`, `email_user`, `password`, `nit`, `nombrefiscal`, `direccionfiscal`, `token`, `rolid`, `datecreated`, `status`) VALUES
 (1, '2409198920', 'Abel', 'OSH', 1234567, 'info@abelosh.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '24252622', 'Abel OSH', 'Antigua Guatemala', '', 1, '2020-08-13 00:51:44', 1),
 (2, '131313131313', 'Carlos', 'Hernández', 121212121, 'carlos@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', '', '', '2c52a34f7988a0afc63e-dfe4badca8d2cb2b93e6-94824d050567a0ccd851-56165c5603c4ca020', 2, '2020-08-13 00:54:08', 1),
 (3, '879846545454', 'Pablo', 'Arana', 784858856, 'pablo@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', '', '', '', 3, '2020-08-14 01:42:34', 1),
@@ -261,7 +266,7 @@ INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `t
 (6, '8465484', 'Alex Fernando', 'Méndez', 222222222, 'alex@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', '', '', '', 3, '2020-08-22 00:48:50', 1),
 (7, '54684987', 'Francisco', 'Herrera', 6654456545, 'francisco@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', '', '', '', '', 2, '2020-08-22 01:55:57', 1),
 (8, '54646849844', 'Axel Gudiel', 'Vela', 654687454, 'axel@info.com', '993fdea29acd1f7c6a6423c038601b175bb282382fc85b306a85f134fff4a63e', '', '', '', '', 3, '2020-09-07 01:30:52', 1),
-(9, '46548454', 'Alan', 'Arenales', 45687954, 'alan@info.com', 'dc4e32154482eff8c1a2061374a0fc2ca40fbf9b893197e949c79be535b06b23', 'CF', 'Alan', 'Ciudad', '', 7, '2020-10-11 01:30:23', 1),
+(9, '46548454', 'Alan', 'Arenales', 45687954, 'alan@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'CF', 'Alan', 'Ciudad', '', 7, '2020-10-11 01:30:23', 1),
 (10, '89898989', 'Mary', 'Arana', 232323, 'mary@info.com', '959b633150ca56bdbe8eefb0b510d720ec00714fc3f6160832dd2ae0c0a0611b', 'CF', 'Marta Cardona', 'Ciudad de Guatemala', '', 7, '2020-10-11 01:43:30', 1),
 (11, '54789656458', 'Joel Eduardo', 'Cabrera', 54124528, 'joel@joel.com', '96cae35ce8a9b0244178bf28e4966c2ce1b8385723a96a6b838858cdd6ca0a1e', 'CF', 'Joel Eduardo', 'Antigua Guatemala', '', 7, '2020-10-11 01:44:30', 1),
 (12, '56874654', 'Pablo', 'Herrera', 65468464, 'pabloh@info.com', '7213f0b87347be4a36e70f9a9eeca3dfc48da72c6ef346871e36e6d53c5572c1', 'CF', 'Pablo', 'Antigua Guatemala', '', 7, '2020-10-11 01:59:45', 1),
@@ -271,7 +276,9 @@ INSERT INTO `persona` (`idpersona`, `identificacion`, `nombres`, `apellidos`, `t
 (16, '65465465478', 'Jorge', 'Mendoza', 6545644, 'jmendoza@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'CF', 'Jorge Mendoza', 'Ciudad', '', 2, '2020-12-05 01:58:08', 1),
 (17, '65465455', 'Jorge', 'Mendoza', 6545644, 'jjjj@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'CF', 'Jorge Mendoza', 'Ciudad', '', 2, '2020-12-05 01:59:25', 1),
 (18, '46584654711', 'Arnold', 'Gutierrez', 78465454, 'arnold@info.com', '8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92', 'CF', 'Arnold', 'Ciudad', '', 7, '2020-12-05 02:02:31', 1),
-(19, '64894654', 'Julieta', 'Estrada', 4654564, 'julieta@info.com', 'b6602f58690ca41488e97cd28153671356747c951c55541b6c8d8b8493eb7143', 'CF', 'Julieta', 'Ciudad', '', 7, '2020-12-05 02:22:30', 1);
+(19, '64894654', 'Julieta', 'Estrada', 4654564, 'julieta@info.com', 'b6602f58690ca41488e97cd28153671356747c951c55541b6c8d8b8493eb7143', 'CF', 'Julieta', 'Ciudad', '', 7, '2020-12-05 02:22:30', 1),
+(20, '', 'Jon', 'Beta', 456546545, 'jon@info.com', '423d557f5d78958e981a85aed290d2d4d5453f9b2857e6b9d34bac1a19e3d740', '', '', '', '', 7, '2020-12-28 03:36:39', 1),
+(21, '', 'Ale', 'Pérez', 4654798878, 'ale@info.com', '973b0c9703e6ee636d7f6afbbb0fd2a4934fea984e7565a77dbbd53b53129e9c', '', '', '', '', 7, '2020-12-28 03:42:23', 1);
 
 -- --------------------------------------------------------
 
@@ -284,34 +291,36 @@ CREATE TABLE IF NOT EXISTS `producto` (
   `idproducto` bigint(20) NOT NULL AUTO_INCREMENT,
   `categoriaid` bigint(20) NOT NULL,
   `codigo` varchar(30) COLLATE utf8mb4_swedish_ci NOT NULL,
-  `nombre` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `nombre` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
   `descripcion` text COLLATE utf8mb4_swedish_ci NOT NULL,
   `precio` decimal(11,2) NOT NULL,
   `stock` int(11) NOT NULL,
   `imagen` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
   `datecreated` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `ruta` varchar(255) COLLATE utf8mb4_swedish_ci NOT NULL,
   `status` int(11) NOT NULL DEFAULT '1',
   PRIMARY KEY (`idproducto`),
   KEY `categoriaid` (`categoriaid`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
 
 --
 -- Volcado de datos para la tabla `producto`
 --
 
-INSERT INTO `producto` (`idproducto`, `categoriaid`, `codigo`, `nombre`, `descripcion`, `precio`, `stock`, `imagen`, `datecreated`, `status`) VALUES
-(1, 4, '45684545', 'Producto 1', '<p>Descripci&oacute;n producto 1</p>', '200.00', 10, '', '2020-11-15 00:57:57', 1),
-(2, 3, '465456465', 'Producto 1', '<p>Descripci&oacute;n producto</p> <ul> <li>Uno</li> <li>Dos</li> </ul>', '110.00', 10, '', '2020-11-15 03:13:35', 1),
-(3, 1, '4654654', 'Producto Uno', '<p>Descripci&oacute;n producto uno</p> <table style=\"border-collapse: collapse; width: 100%;\" border=\"1\"> <tbody> <tr> <td style=\"width: 48.0244%;\">N&uacute;mero</td> <td style=\"width: 48.022%;\">Descripc&iacute;&oacute;n</td> </tr> <tr> <td style=\"width: 48.0244%;\">Uno</td> <td style=\"width: 48.022%;\">Peque&ntilde;o</td> </tr> <tr> <td style=\"width: 48.0244%;\">Dos</td> <td style=\"width: 48.022%;\">Mediano</td> </tr> <tr> <td style=\"width: 48.0244%;\">Tres</td> <td style=\"width: 48.022%;\">Grande</td> </tr> </tbody> </table>', '200.00', 50, '', '2020-11-15 03:19:15', 1),
-(4, 2, '45654654', 'Producto 4', '<p>Descripci&oacute; producto</p>', '50.00', 0, '', '2020-11-23 02:59:44', 1),
-(5, 5, '6546546545', 'Producto 5', '<p>Aqu&iacute; va la descripci&oacute;n del producto</p> <ul> <li>Grande</li> <li>Peque&ntilde;o</li> <li>Mediano</li> </ul>', '1000.00', 10, '', '2020-11-23 03:22:35', 1),
-(6, 4, '646546547877', 'Producto 6', '<p>Descripci&oacute;n producto seis</p> <ul> <li>Uno</li> <li>Dos</li> <li>Tres</li> </ul> <p>&nbsp;</p>', '50.00', 10, '', '2020-11-23 03:38:55', 1),
-(7, 5, '65465454', 'Producto 7', '<p>Datos del producto</p>', '100.00', 10, '', '2020-11-23 03:39:59', 1),
-(8, 5, '6546545', 'Producto 8', '<p>Descripc&iacute;on</p>', '50.00', 10, '', '2020-11-23 03:43:29', 1),
-(9, 2, '546455456', 'Producto 9', '<p>Datos del producto</p>', '120.00', 50, '', '2020-12-01 12:52:33', 1),
-(10, 1, '654546544', 'Producto 10', '<p>Descripc&oacute;n</p>', '100.00', 0, '', '2020-12-02 03:52:09', 1),
-(11, 1, '4657897897', 'Producto Prueba', '<p>Descripcipci&oacute;n producto prueba</p> <ul> <li>Uno</li> <li>Dos</li> <li>Tres</li> </ul> <p>&nbsp;</p>', '100.00', 50, '', '2020-12-06 02:30:02', 1),
-(12, 1, '4894647878', 'Producto Ejemplo', '<p>Descripci&oacute;n producto ejemplo</p> <ul> <li>Uno</li> <li>Dos</li> <li>Tres</li> </ul>', '110.00', 10, '', '2020-12-11 02:23:22', 1);
+INSERT INTO `producto` (`idproducto`, `categoriaid`, `codigo`, `nombre`, `descripcion`, `precio`, `stock`, `imagen`, `datecreated`, `ruta`, `status`) VALUES
+(1, 4, '45684545', 'Producto 1', '<p>Descripci&oacute;n producto 1</p>', '200.00', 10, '', '2020-11-15 00:57:57', 'producto-1', 1),
+(2, 3, '465456465', 'Producto 1', '<p>Descripci&oacute;n producto</p> <ul> <li>Uno</li> <li>Dos</li> </ul>', '110.00', 10, '', '2020-11-15 03:13:35', 'producto-1', 1),
+(3, 1, '4654654', 'Producto Uno', '<p>Descripci&oacute;n producto uno</p> <table style=\"border-collapse: collapse; width: 100%;\" border=\"1\"> <tbody> <tr> <td style=\"width: 48.0244%;\">N&uacute;mero</td> <td style=\"width: 48.022%;\">Descripc&iacute;&oacute;n</td> </tr> <tr> <td style=\"width: 48.0244%;\">Uno</td> <td style=\"width: 48.022%;\">Peque&ntilde;o</td> </tr> <tr> <td style=\"width: 48.0244%;\">Dos</td> <td style=\"width: 48.022%;\">Mediano</td> </tr> <tr> <td style=\"width: 48.0244%;\">Tres</td> <td style=\"width: 48.022%;\">Grande</td> </tr> </tbody> </table>', '200.00', 50, '', '2020-11-15 03:19:15', 'producto-uno', 1),
+(4, 2, '45654654', 'Producto 4', '<p>Descripci&oacute; producto</p>', '50.00', 0, '', '2020-11-23 02:59:44', 'producto-4', 1),
+(5, 5, '6546546545', 'Producto 5', '<p>Aqu&iacute; va la descripci&oacute;n del producto</p> <ul> <li>Grande</li> <li>Peque&ntilde;o</li> <li>Mediano</li> </ul>', '1000.00', 10, '', '2020-11-23 03:22:35', 'producto-5', 1),
+(6, 4, '646546547877', 'Producto 6', '<p>Descripci&oacute;n producto seis</p> <ul> <li>Uno</li> <li>Dos</li> <li>Tres</li> </ul> <p>&nbsp;</p>', '50.00', 10, '', '2020-11-23 03:38:55', 'producto-6', 1),
+(7, 5, '65465454', 'Producto 7', '<p>Datos del producto</p>', '100.00', 10, '', '2020-11-23 03:39:59', 'producto-7', 1),
+(8, 5, '6546545', 'Producto 8', '<p>Descripc&iacute;on</p>', '50.00', 10, '', '2020-11-23 03:43:29', 'producto-8', 1),
+(9, 2, '546455456', 'Producto Nuevo', '<p>Datos del producto</p>', '120.00', 50, '', '2020-12-01 12:52:33', 'producto-nuevo', 1),
+(10, 1, '654546544', 'Producto Nuevo', '<p>Descripc&oacute;n</p>', '100.00', 0, '', '2020-12-02 03:52:09', 'producto-nuevo', 1),
+(11, 1, '4657897897', 'Producto Prueba AX-12', '<p>Descripcipci&oacute;n producto prueba</p> <ul> <li>Uno</li> <li>Dos</li> <li>Tres</li> </ul> <p>&nbsp;</p>', '100.00', 50, '', '2020-12-06 02:30:02', 'producto-prueba-ax-12', 1),
+(12, 1, '4894647878', 'Chaqueta Azúl', '<p>Descripci&oacute;n producto ejemplo</p> <ul> <li>Uno</li> <li>Dos</li> <li>Tres</li> </ul>', '110.00', 10, '', '2020-12-11 02:23:22', 'chaqueta-azul', 1),
+(13, 1, '4654654564', 'Producto nuevo Ruta AX-1', '<p>Descripci&oacute;n producto Nuevo</p>', '100.00', 5, '', '2020-12-18 00:44:28', 'producto-nuevo-ruta-ax-1', 1);
 
 -- --------------------------------------------------------
 
@@ -344,6 +353,31 @@ INSERT INTO `rol` (`idrol`, `nombrerol`, `descripcion`, `status`) VALUES
 (9, 'Coordinador', 'Coordinador', 1),
 (10, 'Consulta Ventas', 'Consulta Ventas', 1);
 
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipopago`
+--
+
+DROP TABLE IF EXISTS `tipopago`;
+CREATE TABLE IF NOT EXISTS `tipopago` (
+  `idtipopago` bigint(20) NOT NULL AUTO_INCREMENT,
+  `tipopago` varchar(100) COLLATE utf8mb4_swedish_ci NOT NULL,
+  `status` int(11) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`idtipopago`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_swedish_ci;
+
+--
+-- Volcado de datos para la tabla `tipopago`
+--
+
+INSERT INTO `tipopago` (`idtipopago`, `tipopago`, `status`) VALUES
+(1, 'PayPal', 1),
+(2, 'Efectivo', 1),
+(3, 'Tarjeta', 1),
+(4, 'Cheque', 1),
+(5, 'Despósito Bancario', 1);
+
 --
 -- Restricciones para tablas volcadas
 --
@@ -371,7 +405,8 @@ ALTER TABLE `imagen`
 -- Filtros para la tabla `pedido`
 --
 ALTER TABLE `pedido`
-  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `pedido_ibfk_1` FOREIGN KEY (`personaid`) REFERENCES `persona` (`idpersona`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pedido_ibfk_2` FOREIGN KEY (`tipopagoid`) REFERENCES `tipopago` (`idtipopago`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Filtros para la tabla `permisos`
