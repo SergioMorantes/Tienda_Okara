@@ -13,7 +13,7 @@
 	const DB_PASSWORD = "";
 	const DB_CHARSET = "utf8";
 
-	//Deliminadores decimal y millar Ej. 24.1989,00
+	//Deliminadores decimal y millar Ej. 24.198,00
 	const SPD = ",";
 	const SPM = ".";
 

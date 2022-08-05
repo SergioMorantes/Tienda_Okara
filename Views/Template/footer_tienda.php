@@ -11,19 +11,19 @@
 					<ul>
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Tofú
+								Queso Tofú
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Bebidas Vegetales
+								Leche de Soya
 							</a>
 						</li>
 
 						<li class="p-b-10">
 							<a href="#" class="stext-107 cl7 hov-cl1 trans-04">
-								Cuajada
+								Cuajada de Soya
 							</a>
 						</li>
 
